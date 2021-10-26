@@ -1,0 +1,39 @@
+plugins {
+    id "idea"
+    id 'java'
+    id 'application'
+}
+
+group = "io.viascom.discord.bot"
+version = '1.0.0'
+
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+
+dependencies {
+
+    //====== JDA ======
+    implementation("net.dv8tion:JDA:4.3.0_298") {
+        exclude module: 'opus-java'
+    }
+}
+
+
+mainClassName = 'io.itsmefox.discord.bot.Application'
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': "${mainClassName}"
+    }
+    archiveBaseName = "${rootProject.name}"
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
