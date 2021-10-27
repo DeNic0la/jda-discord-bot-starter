@@ -1,7 +1,13 @@
 package io.viascom.discord.bot;
 
+import io.viascom.discord.bot.command.BotCommand;
 import io.viascom.discord.bot.command.HelloCommand;
+import io.viascom.discord.bot.listener.CommandListener;
 import io.viascom.discord.bot.listener.ReadListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -15,6 +21,9 @@ public class Application {
     private static JDA jda;
     private static Logger logger = LoggerFactory.getLogger(Application.class);
 
+    private static HashMap<String, BotCommand> commands = new HashMap<>();
+    private static ThreadPoolExecutor commandExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+
     public static void main(String[] args) throws InterruptedException, LoginException {
         var properties = new ApplicationProperties();
 
@@ -23,15 +32,26 @@ public class Application {
 
         printInviteLink(clientId);
 
+        //Register Commands
+        commands.put("hello", new HelloCommand());
+
         jda = JDABuilder.createDefault(token)
                         .setActivity(Activity.playing("Loading..."))
                         .addEventListeners(new ReadListener())
-                        .addEventListeners(new HelloCommand())
+                        .addEventListeners(new CommandListener())
                         .build();
     }
 
     public static JDA getJDA() {
         return jda;
+    }
+
+    public static HashMap<String, BotCommand> getCommands() {
+        return commands;
+    }
+
+    public static ThreadPoolExecutor getCommandExecutor() {
+        return commandExecutor;
     }
 
     public static void printInviteLink(String clientId) {
