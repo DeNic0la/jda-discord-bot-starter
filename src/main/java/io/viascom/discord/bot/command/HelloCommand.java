@@ -8,8 +8,10 @@ public class HelloCommand extends ListenerAdapter {
 
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent event) {
+        //Check if this is our /hello command
         if(event.getName().equals("hello")){
             System.out.println("Command /hello got used");
+            //Replay with 'Hello'
             event.reply("Hello").queue();
         }
     }
