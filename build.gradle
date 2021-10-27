@@ -23,6 +23,9 @@ dependencies {
     implementation("net.dv8tion:JDA:4.3.0_298") {
         exclude module: "opus-java"
     }
+
+    //====== Logging ======
+    implementation 'ch.qos.logback:logback-classic:1.2.6'
 }
 
 
