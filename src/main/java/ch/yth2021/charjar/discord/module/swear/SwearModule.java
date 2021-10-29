@@ -6,13 +6,10 @@ import ch.yth2021.charjar.discord.bot.Application;
 import ch.yth2021.charjar.discord.module.BasicEventModule;
 import ch.yth2021.charjar.discord.module.FileReadHelper;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Locale;
 
 public class SwearModule implements BasicEventModule {
     private static final String FILENAME = "swearwords.txt";
@@ -42,6 +39,7 @@ public class SwearModule implements BasicEventModule {
             } catch (APIRespondedBullshitException e) {
                 logger.debug("Data from API could not be Processed", e);
             }
+            event.getMessage().addReaction("U+1F621").queue();
         }
     }
 }
