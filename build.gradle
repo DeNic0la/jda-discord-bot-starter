@@ -4,7 +4,7 @@ plugins {
     id "application"
 }
 
-group = "io.viascom.discord.bot"
+group = "ch.yth2021.charjar"
 version = "1.0.0"
 
 sourceCompatibility = JavaVersion.VERSION_16
@@ -31,14 +31,14 @@ dependencies {
     //====== Logging ======
     implementation 'ch.qos.logback:logback-classic:1.2.6'
 
-    
+
     implementation 'commons-io:commons-io:2.6'
     testImplementation 'junit:junit:4.13'
 
 }
 
 
-mainClassName = "io.viascom.discord.bot.Application"
+mainClassName = "ch.yth2021.charjar.discord.bot"
 
 task fatJar(type: Jar) {
     manifest {
