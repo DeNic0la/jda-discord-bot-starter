@@ -29,8 +29,16 @@ If everything is successful, you should see in the log that the bot is now conne
 - Do some audio stuff *(hint: you need opus-java and search for a solution for the fatJar task)*
 
 # The library we use
+
 We use [JDA](https://github.com/DV8FromTheWorld/JDA) for this project.
 
+# Properties
+
+For the Discord API-Key-Stuff. To Generate the Properties run
+`cp src/main/resources/secret.example.properties src/main/resources/secret.properties`
+and fill the information into the new Properties file.
+
 # Useful links
+
 - [https://discord.com/developers/applications](https://discord.com/developers/applications)
 - [https://discord.com/developers/docs/intro](https://discord.com/developers/docs/intro)

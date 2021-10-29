@@ -6,21 +6,23 @@ import java.util.Properties;
 public class ApplicationProperties {
 
     Properties properties = new Properties();
+    Properties secretProperties = new Properties();
 
     ApplicationProperties() {
         try {
             properties.load(Application.class.getClassLoader().getResourceAsStream("config.properties"));
+            secretProperties.load(Application.class.getClassLoader().getResourceAsStream("secret.properties"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     public String getDiscordToken() {
-        return properties.getProperty("discord-token");
+        return secretProperties.getProperty("discord-token");
     }
 
     public String getDiscordClientId() {
-        return properties.getProperty("discord-client-id");
+        return secretProperties.getProperty("discord-client-id");
     }
 
     public String getApiURL() {
