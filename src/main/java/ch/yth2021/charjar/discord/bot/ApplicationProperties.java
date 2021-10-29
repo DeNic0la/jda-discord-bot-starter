@@ -27,7 +27,7 @@ public class ApplicationProperties {
 
     public String getApiURL() {
         String property = secretProperties.getProperty("points-api");
-        if (property.length() > 0) {
+        if (property.length() <= 0) {
             property = properties.getProperty("points-api");
         }
         return property;
