@@ -30,6 +30,9 @@ dependencies {
 
     //====== Logging ======
     implementation 'ch.qos.logback:logback-classic:1.2.6'
+
+
+    testImplementation 'junit:junit:4.13'
 }
 
 
@@ -42,4 +45,10 @@ task fatJar(type: Jar) {
     archiveBaseName = "${rootProject.name}"
     from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+
+test {
+    useJUnit()
+    maxHeapSize = '1G'
 }
