@@ -33,6 +33,7 @@ public class SwearModule implements BasicEventModule {
                 if (word.matches(swearWordRegexp)) {
                     swearWordCounter++;
                     System.out.println(word);
+                    break;//No Double matches on same word
                 }
             }
         }
