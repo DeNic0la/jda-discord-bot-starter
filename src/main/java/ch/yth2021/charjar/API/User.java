@@ -1,24 +1,29 @@
 package ch.yth2021.charjar.API;
 
+import ch.yth2021.charjar.discord.bot.ApplicationProperties;
+
 import java.net.http.HttpClient;
 
-public class API {
+public class User {
+    private String userId;
+
+    public User(String userId){
+        this.userId = userId;
+    }
 
     /**
      * Get the Point of a User over the REST-API
-     * @param userId the id of the user to get Information from
      * @return the Points of the User
      */
-    public static int getPoints(String userId){
+    public int getPoints(){
         return 1;
     }
 
     /**
      * Modify the amount of Points a User has over the REST-API
-     * @param userId the ID of the User
      * @param amount the Amount to Add, if the Number is Negative the value will be subtracted
      */
-    public static void modPoints(String userId, int amount){
+    public void modPoints(int amount){
 
     }
 

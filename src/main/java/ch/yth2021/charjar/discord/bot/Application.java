@@ -22,12 +22,14 @@ public class Application {
     public static final String HACKATHON_SERVER_ID = "902564942685802576";
     private static JDA jda;
     private static Logger logger = LoggerFactory.getLogger(Application.class);
+    public static ApplicationProperties properties;
 
     private static HashMap<String, BotCommand> commands = new HashMap<>();
     private static ThreadPoolExecutor commandExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 
     public static void main(String[] args) throws InterruptedException, LoginException {
-        var properties = new ApplicationProperties();
+
+        properties = new ApplicationProperties();
 
         var token = properties.getDiscordToken();
         var clientId = properties.getDiscordClientId();
