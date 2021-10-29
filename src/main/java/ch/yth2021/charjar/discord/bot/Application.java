@@ -5,6 +5,7 @@ import ch.yth2021.charjar.API.User;
 import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import ch.yth2021.charjar.discord.bot.command.HelloCommand;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
+import ch.yth2021.charjar.discord.bot.listener.MessageEventListener;
 import ch.yth2021.charjar.discord.bot.listener.ReadListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -23,9 +24,11 @@ public class Application {
     private static JDA jda;
     private static Logger logger = LoggerFactory.getLogger(Application.class);
     public static ApplicationProperties properties;
+    public static String clientId = "";
 
     private static HashMap<String, BotCommand> commands = new HashMap<>();
     private static ThreadPoolExecutor commandExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+    private static ThreadPoolExecutor eventExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 
     public static void main(String[] args) throws InterruptedException, LoginException {
 
@@ -35,7 +38,7 @@ public class Application {
         User.BASE_URL = properties.getApiURL();
 
         var token = properties.getDiscordToken();
-        var clientId = properties.getDiscordClientId();
+        clientId = properties.getDiscordClientId();
 
         printInviteLink(clientId);
 
@@ -43,9 +46,10 @@ public class Application {
         commands.put("hello", new HelloCommand());
 
         jda = JDABuilder.createDefault(token)
-                        .setActivity(Activity.playing("Loading..."))
-                        .addEventListeners(new ReadListener())
-                        .addEventListeners(new CommandListener())
+                .setActivity(Activity.playing("Loading..."))
+                .addEventListeners(new ReadListener())
+                .addEventListeners(new CommandListener())
+                .addEventListeners(new MessageEventListener())
                         .build();
     }
 
@@ -59,6 +63,14 @@ public class Application {
 
     public static ThreadPoolExecutor getCommandExecutor() {
         return commandExecutor;
+    }
+
+    public static ThreadPoolExecutor getEventExecutorExecutor() {
+        return eventExecutor;
+    }
+
+    public static String getClientId() {
+        return clientId;
     }
 
     public static void printInviteLink(String clientId) {
