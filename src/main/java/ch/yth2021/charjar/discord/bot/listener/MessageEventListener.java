@@ -2,6 +2,7 @@ package ch.yth2021.charjar.discord.bot.listener;
 
 import ch.yth2021.charjar.discord.bot.Application;
 import ch.yth2021.charjar.discord.module.BasicEventModule;
+import ch.yth2021.charjar.discord.module.friendly.FriendlyPeopleModule;
 import ch.yth2021.charjar.discord.module.swear.SwearModule;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -14,6 +15,7 @@ public class MessageEventListener extends ListenerAdapter {
 
     public MessageEventListener() {
         listeners.add(new SwearModule());
+        listeners.add(new FriendlyPeopleModule());
     }
 
     List<BasicEventModule> listeners = new ArrayList<>();

@@ -39,7 +39,7 @@ public class User {
      */
     public int getPoints() throws IOException, APIRespondedBullshitException {
         try {
-            return service.getUser(userId).execute().body().points;
+            return service.getUser(userId).execute().body().balance;
         } catch (IOException ioException) {
             throw ioException;
         } catch (Exception e) {
