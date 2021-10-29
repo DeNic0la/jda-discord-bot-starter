@@ -1,6 +1,7 @@
 package ch.yth2021.charjar.discord.bot;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Properties;
 
 public class ApplicationProperties {
@@ -26,7 +27,7 @@ public class ApplicationProperties {
     }
 
     public String getApiURL() {
-        return properties.getProperty("points-api");
+        return secretProperties.getProperty("points-api").isEmpty() ? properties.getProperty("points-api") : secretProperties.getProperty("points-api");
     }
 
 }
