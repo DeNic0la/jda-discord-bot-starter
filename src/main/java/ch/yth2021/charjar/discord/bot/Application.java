@@ -1,6 +1,7 @@
 package ch.yth2021.charjar.discord.bot;
 
 
+import ch.yth2021.charjar.API.User;
 import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import ch.yth2021.charjar.discord.bot.command.HelloCommand;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
@@ -32,6 +33,9 @@ public class Application {
     public static void main(String[] args) throws InterruptedException, LoginException {
 
         properties = new ApplicationProperties();
+
+        //INIT USER API
+        User.BASE_URL = properties.getApiURL();
 
         var token = properties.getDiscordToken();
         clientId = properties.getDiscordClientId();

@@ -19,6 +19,10 @@ repositories {
 }
 
 dependencies {
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
     //====== JDA ======
     implementation("net.dv8tion:JDA:4.3.0_298") {
         exclude module: "opus-java"
@@ -26,8 +30,11 @@ dependencies {
 
     //====== Logging ======
     implementation 'ch.qos.logback:logback-classic:1.2.6'
+
     
     implementation 'commons-io:commons-io:2.6'
+    testImplementation 'junit:junit:4.13'
+
 }
 
 
@@ -40,4 +47,10 @@ task fatJar(type: Jar) {
     archiveBaseName = "${rootProject.name}"
     from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+
+test {
+    useJUnit()
+    maxHeapSize = '1G'
 }
