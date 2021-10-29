@@ -36,3 +36,6 @@ build/
 /testing/skins/
 /testing/upgrades/
 .run
+
+# Dont Commit secrets
+/src/main/resources/secret.properties
