@@ -4,7 +4,7 @@ package ch.yth2021.charjar.discord.bot;
 import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import ch.yth2021.charjar.discord.bot.command.HelloCommand;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
-import ch.yth2021.charjar.discord.bot.listener.EventListener;
+import ch.yth2021.charjar.discord.bot.listener.MessageEventListener;
 import ch.yth2021.charjar.discord.bot.listener.ReadListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -45,7 +45,7 @@ public class Application {
                 .setActivity(Activity.playing("Loading..."))
                 .addEventListeners(new ReadListener())
                 .addEventListeners(new CommandListener())
-                .addEventListeners(new EventListener())
+                .addEventListeners(new MessageEventListener())
                         .build();
     }
 
