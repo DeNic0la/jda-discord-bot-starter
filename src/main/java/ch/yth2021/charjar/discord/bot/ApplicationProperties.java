@@ -26,7 +26,11 @@ public class ApplicationProperties {
     }
 
     public String getApiURL() {
-        return properties.getProperty("points-api");
+        String property = secretProperties.getProperty("points-api");
+        if (property.length() > 0) {
+            property = properties.getProperty("points-api");
+        }
+        return property;
     }
 
 }
