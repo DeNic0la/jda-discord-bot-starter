@@ -1,12 +1,7 @@
 package ch.yth2021.charjar.discord.bot;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import javax.security.auth.login.LoginException;
-
+import ch.yth2021.charjar.API.User;
 import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import ch.yth2021.charjar.discord.bot.command.HelloCommand;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
@@ -16,6 +11,11 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.security.auth.login.LoginException;
+import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class Application {
 
@@ -30,6 +30,9 @@ public class Application {
     public static void main(String[] args) throws InterruptedException, LoginException {
 
         properties = new ApplicationProperties();
+
+        //INIT USER API
+        User.BASE_URL = properties.getApiURL();
 
         var token = properties.getDiscordToken();
         var clientId = properties.getDiscordClientId();

@@ -19,6 +19,10 @@ repositories {
 }
 
 dependencies {
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
     //====== JDA ======
     implementation("net.dv8tion:JDA:4.3.0_298") {
         exclude module: "opus-java"
