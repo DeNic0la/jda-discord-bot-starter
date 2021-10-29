@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class SwearModule implements BasicEventModule {
     private static final String FILENAME = "swearwords.txt";
     private final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -76,6 +77,7 @@ public class SwearModule implements BasicEventModule {
             } catch (APIRespondedBullshitException e) {
                 logger.debug("Data from API could not be Processed", e);
             }
+            event.getMessage().addReaction("U+1F621").queue();
         }
     }
 }
