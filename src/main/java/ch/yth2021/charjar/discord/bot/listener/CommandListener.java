@@ -1,6 +1,6 @@
-package io.viascom.discord.bot.listener;
+package ch.yth2021.charjar.discord.bot.listener;
 
-import io.viascom.discord.bot.Application;
+import ch.yth2021.charjar.discord.bot.Application;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;

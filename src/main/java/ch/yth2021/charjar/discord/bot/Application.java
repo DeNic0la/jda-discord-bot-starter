@@ -1,14 +1,16 @@
-package io.viascom.discord.bot;
+package ch.yth2021.charjar.discord.bot;
 
-import io.viascom.discord.bot.command.BotCommand;
-import io.viascom.discord.bot.command.HelloCommand;
-import io.viascom.discord.bot.listener.CommandListener;
-import io.viascom.discord.bot.listener.ReadListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import javax.security.auth.login.LoginException;
+
+import ch.yth2021.charjar.discord.bot.command.BotCommand;
+import ch.yth2021.charjar.discord.bot.command.HelloCommand;
+import ch.yth2021.charjar.discord.bot.listener.CommandListener;
+import ch.yth2021.charjar.discord.bot.listener.ReadListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;

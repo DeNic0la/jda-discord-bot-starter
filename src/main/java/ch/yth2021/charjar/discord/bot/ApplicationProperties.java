@@ -1,4 +1,4 @@
-package io.viascom.discord.bot;
+package ch.yth2021.charjar.discord.bot;
 
 import java.io.IOException;
 import java.util.Properties;
