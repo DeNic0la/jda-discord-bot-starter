@@ -4,6 +4,7 @@ import ch.yth2021.charjar.API.Service.UserService;
 import ch.yth2021.charjar.API.Service.model.Modify;
 import ch.yth2021.charjar.API.model.APIRespondedBullshitException;
 import okhttp3.OkHttpClient;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -28,7 +29,7 @@ public class User {
                 .build();
 
         service = retrofit.create(UserService.class);
-        
+
     }
 
     /**
@@ -53,18 +54,17 @@ public class User {
      */
     public void modPoints(int amount) throws IOException, APIRespondedBullshitException {
         Modify m = new Modify(amount);
-        int code;
+        Response<Void> execute;
         try {
-            code = service.modifyPoints(userId, m).execute().code();
+            execute = service.modifyPoints(userId, m).execute();
 
         } catch (IOException e) {
             throw e;
         } catch (Exception e) {
             throw new APIRespondedBullshitException();
         }
-        if (code == RESPONSE_SUCCSESS) {
-            return;
-        } else {
+
+        if (!execute.isSuccessful()) {
             throw new APIRespondedBullshitException();
         }
 
