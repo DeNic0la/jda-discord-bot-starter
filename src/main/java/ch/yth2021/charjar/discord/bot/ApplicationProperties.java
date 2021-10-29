@@ -23,4 +23,8 @@ public class ApplicationProperties {
         return properties.getProperty("discord-client-id");
     }
 
+    public String getApiURL() {
+        return properties.getProperty("points-api");
+    }
+
 }
