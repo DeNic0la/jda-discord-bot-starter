@@ -18,9 +18,9 @@ public class FileReadHelper {
     }
 
     private static String[] getLinesFromFile(String filename) {
-        InputStream filePath = Application.class.getClassLoader().getResourceAsStream(filename);
+        InputStream inputStream = Application.class.getClassLoader().getResourceAsStream(filename);
         try {
-            String message = IOUtils.toString(filePath, StandardCharsets.UTF_8);
+            String message = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             return message.split("\n");
         } catch (Exception e) {
             logger.debug("There was an Error reading " + filename + " using empty array.", e);
