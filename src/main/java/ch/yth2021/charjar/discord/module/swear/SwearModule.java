@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Locale;
 
 public class SwearModule implements BasicEventModule {
@@ -37,6 +38,7 @@ public class SwearModule implements BasicEventModule {
             User user = new User(event.getAuthor().getId());
             try {
                 user.modPoints(-numberOfSwearwords);
+                event.getMessage().getChannel().sendMessage(String.format("you've been a bad boy! %s points have been deducted from your balance", numberOfSwearwords)).queue();
             } catch (IOException e) {
                 logger.debug("Network Error", e);
             } catch (APIRespondedBullshitException e) {
