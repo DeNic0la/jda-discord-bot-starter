@@ -1,15 +1,10 @@
 package ch.yth2021.charjar.discord.bot;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import javax.security.auth.login.LoginException;
-
 import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import ch.yth2021.charjar.discord.bot.command.HelloCommand;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
+import ch.yth2021.charjar.discord.bot.listener.EventListener;
 import ch.yth2021.charjar.discord.bot.listener.ReadListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -17,22 +12,29 @@ import net.dv8tion.jda.api.entities.Activity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.security.auth.login.LoginException;
+import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 public class Application {
 
     public static final String HACKATHON_SERVER_ID = "902564942685802576";
     private static JDA jda;
     private static Logger logger = LoggerFactory.getLogger(Application.class);
     public static ApplicationProperties properties;
+    public static String clientId = "";
 
     private static HashMap<String, BotCommand> commands = new HashMap<>();
     private static ThreadPoolExecutor commandExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+    private static ThreadPoolExecutor eventExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 
     public static void main(String[] args) throws InterruptedException, LoginException {
 
         properties = new ApplicationProperties();
 
         var token = properties.getDiscordToken();
-        var clientId = properties.getDiscordClientId();
+        clientId = properties.getDiscordClientId();
 
         printInviteLink(clientId);
 
@@ -40,9 +42,10 @@ public class Application {
         commands.put("hello", new HelloCommand());
 
         jda = JDABuilder.createDefault(token)
-                        .setActivity(Activity.playing("Loading..."))
-                        .addEventListeners(new ReadListener())
-                        .addEventListeners(new CommandListener())
+                .setActivity(Activity.playing("Loading..."))
+                .addEventListeners(new ReadListener())
+                .addEventListeners(new CommandListener())
+                .addEventListeners(new EventListener())
                         .build();
     }
 
@@ -56,6 +59,14 @@ public class Application {
 
     public static ThreadPoolExecutor getCommandExecutor() {
         return commandExecutor;
+    }
+
+    public static ThreadPoolExecutor getEventExecutorExecutor() {
+        return eventExecutor;
+    }
+
+    public static String getClientId() {
+        return clientId;
     }
 
     public static void printInviteLink(String clientId) {

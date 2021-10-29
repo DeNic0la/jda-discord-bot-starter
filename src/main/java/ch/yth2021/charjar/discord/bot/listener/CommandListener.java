@@ -10,11 +10,15 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent event) {
         if (Application.getCommands().containsKey(event.getName())) {
-            try {
-                Application.getCommands().get(event.getName()).getClass().getDeclaredConstructor().newInstance().execute(event);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Application.getCommandExecutor().submit(() ->
+                    {
+                        try {
+                            Application.getCommands().get(event.getName()).getClass().getDeclaredConstructor().newInstance().execute(event);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
         }
     }
 }
