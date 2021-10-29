@@ -2,7 +2,7 @@ package ch.yth2021.charjar.API.Service.model;
 
 public class Modify {
     public PointAction action;
-    public int number;
+    public int amount;
 
     /**
      * generates the Modify object according to the number (make number negative for substract)
@@ -11,16 +11,16 @@ public class Modify {
      */
     public Modify(int number) {
         if (number > 0) {
-            this.number = number;
+            this.amount = number;
             this.action = PointAction.ADD;
         } else {
-            this.number = -number;
+            this.amount = -number;
             this.action = PointAction.SUBTRACT;
         }
     }
 
     @Override
     public String toString() {
-        return "{action:" + action.name() + " ,number:" + number + "}";
+        return "{action:" + action.name() + " ,amount:" + amount + "}";
     }
 }
