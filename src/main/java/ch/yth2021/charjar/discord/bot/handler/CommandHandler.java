@@ -1,7 +1,8 @@
-package io.viascom.discord.bot.handler;
+package ch.yth2021.charjar.discord.bot.handler;
 
-import io.viascom.discord.bot.Application;
-import io.viascom.discord.bot.command.BotCommand;
+
+import ch.yth2021.charjar.discord.bot.Application;
+import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 

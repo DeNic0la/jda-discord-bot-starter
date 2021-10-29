@@ -1,7 +1,7 @@
-package io.viascom.discord.bot.listener;
+package ch.yth2021.charjar.discord.bot.listener;
 
-import io.viascom.discord.bot.Application;
-import io.viascom.discord.bot.handler.CommandHandler;
+import ch.yth2021.charjar.discord.bot.Application;
+import ch.yth2021.charjar.discord.bot.handler.CommandHandler;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

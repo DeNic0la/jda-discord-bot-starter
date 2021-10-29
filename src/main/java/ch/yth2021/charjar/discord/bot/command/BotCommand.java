@@ -1,4 +1,4 @@
-package io.viascom.discord.bot.command;
+package ch.yth2021.charjar.discord.bot.command;
 
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
