@@ -22,19 +22,17 @@ public class WalletCommand extends BotCommand {
 
     @Override
     public void execute(SlashCommandEvent event) {
-        System.out.println("WalletCommand executed");
         Application.getCommandExecutor().execute(() ->
                 {
                     User user = new User(event.getUser().getId());
                     try {
                         event.reply("Your current balance is " + user.getPoints()).queue();
                     } catch (IOException e) {
-                        event.reply("There was an network error :(").queue();
-                        logger.debug("Network Error", e);
-                    } catch (APIRespondedBullshitException e) {
-                        System.err.println(e);
                         event.reply("There was an unexpected error :(").queue();
-                        logger.debug("Data from API could not be Processed", e);
+                        logger.error("Network Error", e);
+                    } catch (APIRespondedBullshitException e) {
+                        event.reply("There was an unexpected error :(").queue();
+                        logger.error("Data from API could not be Processed", e);
                     }
                 }
         );
