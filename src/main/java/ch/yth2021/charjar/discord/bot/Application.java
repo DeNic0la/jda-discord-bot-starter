@@ -5,10 +5,14 @@ import ch.yth2021.charjar.API.Quiz;
 import ch.yth2021.charjar.API.User;
 import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import ch.yth2021.charjar.discord.bot.command.HelloCommand;
+import ch.yth2021.charjar.discord.bot.command.StartRandomEventSchedulerCommand;
 import ch.yth2021.charjar.discord.bot.command.WalletCommand;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
 import ch.yth2021.charjar.discord.bot.listener.MessageEventListener;
+import ch.yth2021.charjar.discord.bot.listener.ReactionListener;
 import ch.yth2021.charjar.discord.bot.listener.ReadListener;
+import ch.yth2021.charjar.discord.module.swear.SwearModule;
+import ch.yth2021.charjar.discord.processor.PointModificationProcessor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -22,7 +26,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class Application {
 
-    public static final String HACKATHON_SERVER_ID = "902564942685802576";
+    public static String HACKATHON_SERVER_ID;
     private static JDA jda;
     private static Logger logger = LoggerFactory.getLogger(Application.class);
     public static ApplicationProperties properties;
@@ -35,6 +39,8 @@ public class Application {
     public static void main(String[] args) throws InterruptedException, LoginException {
 
         properties = new ApplicationProperties();
+
+        HACKATHON_SERVER_ID = properties.getServerID();
 
         //INIT USER API
         User.BASE_URL = properties.getApiURL();
@@ -50,13 +56,17 @@ public class Application {
         //Register Commands
         commands.put("hello", new HelloCommand());
         commands.put("wallet", new WalletCommand());
+        commands.put("startrandomevents", new StartRandomEventSchedulerCommand());
 
         jda = JDABuilder.createDefault(token)
                 .setActivity(Activity.playing("Loading..."))
                 .addEventListeners(new ReadListener())
                 .addEventListeners(new CommandListener())
                 .addEventListeners(new MessageEventListener())
+                .addEventListeners(new ReactionListener())
                         .build();
+
+        SwearModule.register(new PointModificationProcessor());
     }
 
     public static JDA getJDA() {
