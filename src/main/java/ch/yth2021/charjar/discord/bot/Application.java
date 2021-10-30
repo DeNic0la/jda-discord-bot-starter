@@ -8,6 +8,7 @@ import ch.yth2021.charjar.discord.bot.command.StartRandomEventSchedulerCommand;
 import ch.yth2021.charjar.discord.bot.command.WalletCommand;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
 import ch.yth2021.charjar.discord.bot.listener.MessageEventListener;
+import ch.yth2021.charjar.discord.bot.listener.ReactionListener;
 import ch.yth2021.charjar.discord.bot.listener.ReadListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -54,7 +55,8 @@ public class Application {
                 .addEventListeners(new ReadListener())
                 .addEventListeners(new CommandListener())
                 .addEventListeners(new MessageEventListener())
-                        .build();
+                .addEventListeners(new ReactionListener())
+                .build();
     }
 
     public static JDA getJDA() {
