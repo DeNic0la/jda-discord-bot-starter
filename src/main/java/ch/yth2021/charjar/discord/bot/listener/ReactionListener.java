@@ -14,6 +14,7 @@ import java.time.OffsetDateTime;
 
 public class ReactionListener extends ListenerAdapter {
     private final static Long EXPIRES_AFTER = 10L;
+    private final static int REWARD = 5;
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
@@ -21,6 +22,7 @@ public class ReactionListener extends ListenerAdapter {
             if (isSentByBot(m)) {
                 if (isRandomEventAndUserReactedProperly(event, m) && !messageExpired(m, EXPIRES_AFTER)) {
                     giveUserPoints(event.getUserId());
+                    event.getChannel().sendMessage("Good Job " + event.getUser().getName() + "! **" + REWARD + "** points were added to your wallet!").queue();
                 } else {
                     event.getReaction().clearReactions().queue();
                 }
@@ -36,7 +38,7 @@ public class ReactionListener extends ListenerAdapter {
     private void giveUserPoints(String userId) {
         User user = new User(userId);
         try {
-            user.modPoints(5);
+            user.modPoints(REWARD);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (APIRespondedBullshitException e) {

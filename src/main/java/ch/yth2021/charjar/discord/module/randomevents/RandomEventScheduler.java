@@ -12,7 +12,7 @@ import java.util.TimerTask;
 
 public class RandomEventScheduler {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
-    private final Timer timer = new Timer();
+    private Timer timer;
     private final TextChannel textChannel;
     public static final List<RandomEvent> possibleRandomEvents = List.of(
             new RandomEvent("water yo plants", "\uD83D\uDCA7")
@@ -26,11 +26,14 @@ public class RandomEventScheduler {
     public void stopScheduler() {
         timer.cancel();
         timer.purge();
+        timer = null;
     }
 
     public void startScheduler() {
-        new RandomTask().run();
-
+        if (timer == null) {
+            timer = new Timer();
+            new RandomTask().run();
+        }
     }
 
     public Integer getCurrentTaskIndex() {
@@ -59,7 +62,7 @@ public class RandomEventScheduler {
         @Override
         public void run() {
             int delay = (5 + new Random().nextInt(100)) * 1000;
-            currentTaskIndex = (delay % possibleRandomEvents.size());
+            currentTaskIndex = new Random().nextInt(possibleRandomEvents.size());
             timer.schedule(new RandomTask(), delay);
 
             textChannel.sendMessage(String.format("%s %s", possibleRandomEvents.get(currentTaskIndex).getMessage(),
