@@ -56,6 +56,7 @@ public class Application {
         commands.put("hello", new HelloCommand());
         commands.put("wallet", new WalletCommand());
         commands.put("startrandomevents", new StartRandomEventSchedulerCommand());
+        commands.put("help", new HelpCommand());
         commands.put("quiz", new QuizCommand());
         commands.put("stoprandomevents", new StopRandomEventSchedulerCommand());
 
