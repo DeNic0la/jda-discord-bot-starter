@@ -4,9 +4,11 @@ package ch.yth2021.charjar.discord.bot;
 import ch.yth2021.charjar.API.User;
 import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import ch.yth2021.charjar.discord.bot.command.HelloCommand;
+import ch.yth2021.charjar.discord.bot.command.StartRandomEventSchedulerCommand;
 import ch.yth2021.charjar.discord.bot.command.WalletCommand;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
 import ch.yth2021.charjar.discord.bot.listener.MessageEventListener;
+import ch.yth2021.charjar.discord.bot.listener.ReactionListener;
 import ch.yth2021.charjar.discord.bot.listener.ReadListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -46,13 +48,15 @@ public class Application {
         //Register Commands
         commands.put("hello", new HelloCommand());
         commands.put("wallet", new WalletCommand());
+        commands.put("startrandomevents", new StartRandomEventSchedulerCommand());
 
         jda = JDABuilder.createDefault(token)
                 .setActivity(Activity.playing("Loading..."))
                 .addEventListeners(new ReadListener())
                 .addEventListeners(new CommandListener())
                 .addEventListeners(new MessageEventListener())
-                        .build();
+                .addEventListeners(new ReactionListener())
+                .build();
     }
 
     public static JDA getJDA() {
