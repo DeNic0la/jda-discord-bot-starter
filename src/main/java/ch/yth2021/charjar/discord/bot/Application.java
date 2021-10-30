@@ -1,6 +1,7 @@
 package ch.yth2021.charjar.discord.bot;
 
 
+import ch.yth2021.charjar.API.Quiz;
 import ch.yth2021.charjar.API.User;
 import ch.yth2021.charjar.discord.bot.command.*;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
@@ -43,6 +44,9 @@ public class Application {
         //INIT USER API
         User.BASE_URL = properties.getApiURL();
 
+        //INIT Quiz API
+        Quiz.BASE_URL = properties.getQuizURL();
+
         var token = properties.getDiscordToken();
         clientId = properties.getDiscordClientId();
 
@@ -52,7 +56,9 @@ public class Application {
         commands.put("hello", new HelloCommand());
         commands.put("wallet", new WalletCommand());
         commands.put("startrandomevents", new StartRandomEventSchedulerCommand());
+        commands.put("quiz", new QuizCommand());
         commands.put("stoprandomevents", new StopRandomEventSchedulerCommand());
+
 
         jda = JDABuilder.createDefault(token)
                 .setActivity(Activity.playing("Loading..."))
