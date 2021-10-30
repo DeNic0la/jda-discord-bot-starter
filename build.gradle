@@ -7,14 +7,20 @@ plugins {
 group = "ch.yth2021.charjar"
 version = "1.0.0"
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     mavenCentral()
     maven {
         name "m2-dv8tion"
         url "https://m2.dv8tion.net/releases"
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
     }
 }
 
