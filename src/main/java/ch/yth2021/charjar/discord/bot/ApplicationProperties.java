@@ -37,4 +37,8 @@ public class ApplicationProperties {
         return Strings.isNullOrEmpty(secretProperties.getProperty("points-api")) ? properties.getProperty("points-api") : secretProperties.getProperty("points-api");
     }
 
+    public String getServerID() {
+        return Strings.isNullOrEmpty(secretProperties.getProperty("server-id")) ? properties.getProperty("server-id") : secretProperties.getProperty("server-id");
+    }
+
 }
