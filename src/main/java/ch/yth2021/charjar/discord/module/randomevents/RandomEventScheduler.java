@@ -15,7 +15,12 @@ public class RandomEventScheduler {
     private Timer timer;
     private final TextChannel textChannel;
     public static final List<RandomEvent> possibleRandomEvents = List.of(
-            new RandomEvent("water yo plants", "\uD83D\uDCA7")
+            new RandomEvent("water yo plants", "\uD83D\uDCA7"),
+            new RandomEvent("Help to pick up the walking stick from this old woman", "\uD83E\uDDAF"),
+            new RandomEvent("Help the cat down from the tree.", "\uD83D\uDC08"),
+            new RandomEvent("Pick up the dog shit from your neighbors garden", "\uD83D\uDCA9"),
+            new RandomEvent("Give money to a stranger", "\uD83D\uDCB8"),
+            new RandomEvent("Clean the house", "\uD83E\uDDF9")
     );
     private Integer currentTaskIndex;
 
