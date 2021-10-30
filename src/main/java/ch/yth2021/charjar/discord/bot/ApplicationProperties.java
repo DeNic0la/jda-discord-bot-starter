@@ -3,7 +3,6 @@ package ch.yth2021.charjar.discord.bot;
 import com.google.common.base.Strings;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.Properties;
 
 public class ApplicationProperties {
@@ -30,6 +29,10 @@ public class ApplicationProperties {
 
     public String getApiURL() {
         return Strings.isNullOrEmpty(secretProperties.getProperty("points-api")) ? properties.getProperty("points-api") : secretProperties.getProperty("points-api");
+    }
+
+    public String getQuizURL() {
+        return Strings.isNullOrEmpty(secretProperties.getProperty("quiz-api")) ? properties.getProperty("quiz-api") : secretProperties.getProperty("quiz-api");
     }
 
 }

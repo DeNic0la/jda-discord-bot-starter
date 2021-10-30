@@ -1,6 +1,7 @@
 package ch.yth2021.charjar.discord.bot;
 
 
+import ch.yth2021.charjar.API.Quiz;
 import ch.yth2021.charjar.API.User;
 import ch.yth2021.charjar.discord.bot.command.BotCommand;
 import ch.yth2021.charjar.discord.bot.command.HelloCommand;
@@ -37,6 +38,9 @@ public class Application {
 
         //INIT USER API
         User.BASE_URL = properties.getApiURL();
+
+        //INIT Quiz API
+        Quiz.BASE_URL = properties.getQuizURL();
 
         var token = properties.getDiscordToken();
         clientId = properties.getDiscordClientId();
