@@ -16,19 +16,21 @@ public class PointModificationProcessor implements EventListener {
 
     @Override
     public void onEvent(MessageReceivedEvent event) {
-        User user = new User(event.getAuthor().getId());
-        try {
-            if (user.getPoints() <= 0) {
-                event.getGuild().kick(event.getAuthor().getId()).queue();
-                user.modPoints(10);
-                TextChannel channel = Application.getJDA().getTextChannelById(event.getChannel().getId());
-                String author = event.getAuthor().getName();
-                channel.sendMessage(author + " got yeeted from the channel because of their bad behavior.").queue();
+        if (Application.properties.getKickuserActivated().equals("true")) {
+            User user = new User(event.getAuthor().getId());
+            try {
+                if (user.getPoints() <= 0) {
+                    event.getGuild().kick(event.getAuthor().getId()).queue();
+                    user.modPoints(10);
+                    TextChannel channel = Application.getJDA().getTextChannelById(event.getChannel().getId());
+                    String author = event.getAuthor().getName();
+                    channel.sendMessage(author + " got yeeted from the channel because of their bad behavior.").queue();
+                }
+            } catch (IOException e) {
+                logger.debug("Network Error", e);
+            } catch (APIRespondedBullshitException e) {
+                logger.debug("Data from API could not be Processed", e);
             }
-        } catch (IOException e) {
-            logger.debug("Network Error", e);
-        } catch (APIRespondedBullshitException e) {
-            logger.debug("Data from API could not be Processed", e);
         }
     }
 }
