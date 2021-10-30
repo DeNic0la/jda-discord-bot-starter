@@ -1,35 +1,53 @@
 package ch.yth2021.charjar.API;
 
-import ch.yth2021.charjar.API.Service.QuizService;
-import ch.yth2021.charjar.API.Service.model.QuizApiResponse;
 import ch.yth2021.charjar.API.model.APIRespondedBullshitException;
-import okhttp3.OkHttpClient;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import ch.yth2021.charjar.API.model.QuizApiResponse;
+import ch.yth2021.charjar.API.model.QuizResponse;
+import com.google.gson.Gson;
+import org.unbescape.html.HtmlEscape;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Quiz {
     public static String BASE_URL;
 
-    public Quiz() throws IOException, APIRespondedBullshitException {
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    private String getResponseFromAPI() throws IOException {
+        URL url = new URL("https://opentdb.com/api.php?amount=1&type=multiple");
+        HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://opentdb.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-
-        QuizService service = retrofit.create(QuizService.class);
-
-        Response<QuizApiResponse> response = service.getQuiz("?amount=1&type=multiple").execute();
-        if (!response.isSuccessful()) {
-            throw new APIRespondedBullshitException();
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
         }
-        System.out.println(response);
+        in.close();
+        con.disconnect();
+        return content.toString();
+    }
 
+    public Quiz() throws IOException, APIRespondedBullshitException {
+
+        String responseFromAPI = getResponseFromAPI();
+        Gson gson = new Gson();
+
+        QuizApiResponse apiResp = gson.fromJson(responseFromAPI, QuizApiResponse.class);
+        QuizResponse quizResponse = apiResp.results[0];
+        List<String> resp = new ArrayList<>();
+        for (String s : quizResponse.incorrect_answers) {
+            resp.add(HtmlEscape.unescapeHtml(s));
+        }
+        answers = resp;
+        correctAnswer = HtmlEscape.unescapeHtml(quizResponse.correct_answer);
+        question = HtmlEscape.unescapeHtml(quizResponse.question);
 
     }
 
@@ -37,7 +55,7 @@ public class Quiz {
         return question;
     }
 
-    public String[] getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
@@ -46,6 +64,6 @@ public class Quiz {
     }
 
     private String question;
-    private String[] answers;
+    private List<String> answers;
     private String correctAnswer;
 }

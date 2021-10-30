@@ -3,10 +3,7 @@ package ch.yth2021.charjar.discord.bot;
 
 import ch.yth2021.charjar.API.Quiz;
 import ch.yth2021.charjar.API.User;
-import ch.yth2021.charjar.discord.bot.command.BotCommand;
-import ch.yth2021.charjar.discord.bot.command.HelloCommand;
-import ch.yth2021.charjar.discord.bot.command.StartRandomEventSchedulerCommand;
-import ch.yth2021.charjar.discord.bot.command.WalletCommand;
+import ch.yth2021.charjar.discord.bot.command.*;
 import ch.yth2021.charjar.discord.bot.listener.CommandListener;
 import ch.yth2021.charjar.discord.bot.listener.MessageEventListener;
 import ch.yth2021.charjar.discord.bot.listener.ReactionListener;
@@ -57,6 +54,7 @@ public class Application {
         commands.put("hello", new HelloCommand());
         commands.put("wallet", new WalletCommand());
         commands.put("startrandomevents", new StartRandomEventSchedulerCommand());
+        commands.put("quiz", new QuizCommand());
 
         jda = JDABuilder.createDefault(token)
                 .setActivity(Activity.playing("Loading..."))
