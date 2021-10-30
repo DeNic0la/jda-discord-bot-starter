@@ -25,7 +25,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class Application {
 
-    public static final String HACKATHON_SERVER_ID = "902564942685802576";
+    public static String HACKATHON_SERVER_ID;
     private static JDA jda;
     private static Logger logger = LoggerFactory.getLogger(Application.class);
     public static ApplicationProperties properties;
@@ -38,6 +38,8 @@ public class Application {
     public static void main(String[] args) throws InterruptedException, LoginException {
 
         properties = new ApplicationProperties();
+
+        HACKATHON_SERVER_ID = properties.getServerID();
 
         //INIT USER API
         User.BASE_URL = properties.getApiURL();
