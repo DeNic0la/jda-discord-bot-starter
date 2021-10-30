@@ -26,8 +26,9 @@ public class WalletCommand extends BotCommand {
                 {
                     User user = new User(event.getUser().getId());
                     try {
-                        event.reply("Your current balance is " + user.getPoints()).queue();
-                    } catch (IOException e) {
+                        int userPoints = user.getPoints();
+                        event.reply("Your current balance is " + userPoints).queue();
+                    }  catch (IOException e) {
                         event.reply("There was an unexpected error :(").queue();
                         logger.error("Network Error", e);
                     } catch (APIRespondedBullshitException e) {
