@@ -9,10 +9,6 @@ public class HelpCommand extends BotCommand {
     }
 
     @Override
-    public void initCommandOptions() {
-    }
-
-    @Override
     public void execute(SlashCommandEvent event) {
         Application.getCommandExecutor().execute(() -> {
             String message = "Available commands: \n";
