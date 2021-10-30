@@ -19,6 +19,7 @@ public class SwearModule implements BasicEventModule {
     private static final String FILENAME = "swearwords.txt";
     private final Logger logger = LoggerFactory.getLogger(Application.class);
     private static final String REGEXP_SPECIAL_CHAR = "[^a-z ]";
+    private static final String REGEXP_ONLY_SPECIAL_CHARS = "^[\\*]*$";
     private static final String REGEXP_STAR_FOR_REPLACEMENT = "*";
     private static final String TEMPLATE_REGEXP_MATCH_ON_CHAR_OR_STAR = "[%s\\*]";
     private static final String TEMPLATE_REGEXP_MATCH = ".*(%s).*";
@@ -39,10 +40,18 @@ public class SwearModule implements BasicEventModule {
     public int countSwearwords(String message) {
         int swearWordCounter = 0;
 
+        List<String> qualifyedWords = new ArrayList<>();
         String[] words = reshapeMessageData(message).split(" ");
+        for (String word : words) {
+            if (word.length() > 2) {
+                if (!word.matches(REGEXP_ONLY_SPECIAL_CHARS)) {
+                    qualifyedWords.add(word);
+                }
+            }
+        }
 
         List<String> swearWordsRegexp = getSwearWordsRegexed();
-        for (String word : words) {
+        for (String word : qualifyedWords) {
             for (String swearWordRegexp : swearWordsRegexp) {
                 if (word.matches(swearWordRegexp)) {
                     swearWordCounter++;
