@@ -32,7 +32,7 @@ dependencies {
     //====== Logging ======
     implementation 'ch.qos.logback:logback-classic:1.2.6'
 
-
+    implementation 'org.unbescape:unbescape:1.1.6.RELEASE'
     implementation 'commons-io:commons-io:2.6'
     testImplementation 'junit:junit:4.13'
 

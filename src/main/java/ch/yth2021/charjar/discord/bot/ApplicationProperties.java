@@ -41,4 +41,8 @@ public class ApplicationProperties {
         return Strings.isNullOrEmpty(secretProperties.getProperty("server-id")) ? properties.getProperty("server-id") : secretProperties.getProperty("server-id");
     }
 
+    public String getQuizURL() {
+        return Strings.isNullOrEmpty(secretProperties.getProperty("quiz-api")) ? properties.getProperty("quiz-api") : secretProperties.getProperty("quiz-api");
+    }
+
 }
