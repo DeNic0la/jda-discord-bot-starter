@@ -26,6 +26,9 @@ public class MessageEventListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        if (Application.getClientId().equals(event.getMessage().getAuthor().getId())) {
+            return;
+        }
         for (BasicEventModule bem : listeners) {
             Application.getCommandExecutor().submit(() -> {
                 bem.onMessageReceived(event);
