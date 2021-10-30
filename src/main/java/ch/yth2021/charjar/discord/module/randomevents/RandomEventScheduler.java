@@ -12,18 +12,19 @@ import java.util.TimerTask;
 
 public class RandomEventScheduler {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
-    private static final Timer timer = new Timer();
+    private final Timer timer = new Timer();
     private final TextChannel textChannel;
     public static final List<RandomEvent> possibleRandomEvents = List.of(
             new RandomEvent("water yo plants", "\uD83D\uDCA7")
     );
-    private static Integer currentTaskIndex;
+    private Integer currentTaskIndex;
 
     public RandomEventScheduler(String channelId) {
         this.textChannel = Application.getJDA().getTextChannelById(channelId);
     }
 
-    public static void stopScheduler() {
+    public void stopScheduler() {
+        timer.cancel();
         timer.purge();
     }
 
@@ -32,7 +33,7 @@ public class RandomEventScheduler {
 
     }
 
-    public static Integer getCurrentTaskIndex() {
+    public Integer getCurrentTaskIndex() {
         return currentTaskIndex;
     }
 
@@ -57,8 +58,7 @@ public class RandomEventScheduler {
     class RandomTask extends TimerTask {
         @Override
         public void run() {
-            // TODO: increase bound to make random events less common
-            int delay = (5 + new Random().nextInt(20)) * 1000;
+            int delay = (5 + new Random().nextInt(100)) * 1000;
             currentTaskIndex = (delay % possibleRandomEvents.size());
             timer.schedule(new RandomTask(), delay);
 

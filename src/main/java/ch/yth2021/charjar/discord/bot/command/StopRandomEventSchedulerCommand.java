@@ -1,5 +1,6 @@
 package ch.yth2021.charjar.discord.bot.command;
 
+import ch.yth2021.charjar.discord.bot.Application;
 import ch.yth2021.charjar.discord.module.randomevents.RandomEventScheduler;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
@@ -16,7 +17,7 @@ public class StopRandomEventSchedulerCommand extends BotCommand {
     public void execute(SlashCommandEvent event) {
         var channelId = event.getChannel().getId();
 
-        RandomEventScheduler.stopScheduler();
+        Application.randomEventScheduler.stopScheduler();
         event.reply("random events scheduler has been stopped").queue();
     }
 }
