@@ -3,12 +3,15 @@ package ch.yth2021.charjar.API;
 import ch.yth2021.charjar.API.Service.UserService;
 import ch.yth2021.charjar.API.Service.model.Modify;
 import ch.yth2021.charjar.API.model.APIRespondedBullshitException;
+import ch.yth2021.charjar.discord.processor.model.EventListener;
 import okhttp3.OkHttpClient;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     public static String BASE_URL;
@@ -67,7 +70,6 @@ public class User {
         if (!execute.isSuccessful()) {
             throw new APIRespondedBullshitException();
         }
-
     }
 
 }
