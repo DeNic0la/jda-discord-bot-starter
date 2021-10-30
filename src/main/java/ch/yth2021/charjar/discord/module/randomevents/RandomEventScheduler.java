@@ -66,8 +66,10 @@ public class RandomEventScheduler {
     class RandomTask extends TimerTask {
         @Override
         public void run() {
+
             int delay = (5 + new Random().nextInt(100)) * 1000;
             currentTaskIndex = new Random().nextInt(possibleRandomEvents.size());
+
             timer.schedule(new RandomTask(), delay);
 
             textChannel.sendMessage(String.format("%s %s", possibleRandomEvents.get(currentTaskIndex).getMessage(),
