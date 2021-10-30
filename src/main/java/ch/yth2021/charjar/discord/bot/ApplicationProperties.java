@@ -30,7 +30,7 @@ public class ApplicationProperties {
     }
 
     public String getKickuserActivated() {
-        return Strings.isNullOrEmpty(secretProperties.getProperty("kick-users")) ? properties.getProperty("kick-users") : secretProperties.getProperty("kick-users");
+        return properties.getProperty("kick-users");
     }
 
     public String getApiURL() {
