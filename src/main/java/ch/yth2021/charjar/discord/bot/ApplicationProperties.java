@@ -28,6 +28,10 @@ public class ApplicationProperties {
         return secretProperties.getProperty("discord-client-id");
     }
 
+    public String getKickuserActivated() {
+        return Strings.isNullOrEmpty(secretProperties.getProperty("kick-users")) ? properties.getProperty("kick-users") : secretProperties.getProperty("kick-users");
+    }
+
     public String getApiURL() {
         return Strings.isNullOrEmpty(secretProperties.getProperty("points-api")) ? properties.getProperty("points-api") : secretProperties.getProperty("points-api");
     }
