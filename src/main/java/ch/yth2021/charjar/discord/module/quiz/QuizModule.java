@@ -6,6 +6,7 @@ import ch.yth2021.charjar.API.model.APIRespondedBullshitException;
 import ch.yth2021.charjar.discord.module.BasicEventModule;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.IOException;
@@ -16,11 +17,34 @@ public class QuizModule implements BasicEventModule {
 
     private static String currentAnswer = "";
 
-    private static Message currentQuestion;
+    public static Message currentQuestion;
 
     private static final String[] ALPHABET = {"A", "B", "C", "D", "E"};
+    private static final String[] LIT_EMOJIS = {"U+1F590", "U+1F92D", "U+1F47B", "U+1F47E"};
+    private static final String[] TEXT_EMOJIS = {":hand_splayed:", ":face_with_hand_over_mouth:", ":ghost:", ":space_invader:"};
     private static final String GOOD_EMOTE = "U+1F4AF";
     private static final String BAD_EMOTE = "U+1F4A9";
+
+    public static void userReactedWithEmoteToCurrentQuestion(String userId, String emote, TextChannel channel) {
+        User u = new User(userId);
+        int toMod = 0;
+        if (emote.equals(currentAnswer)) {
+            toMod = 5;
+            channel.sendMessage("Correct").queue();
+        } else {
+            toMod = -1;
+            channel.sendMessage("Wrong").queue();
+        }
+        try {
+            u.modPoints(toMod);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        currentAnswer = "";
+        if (currentQuestion != null) {
+            currentQuestion.delete().queue();
+        }
+    }
 
     public static void generateQuiz(MessageChannel channel) {
         Quiz q;
@@ -42,15 +66,18 @@ public class QuizModule implements BasicEventModule {
         int correctAnswer = answers.indexOf(q.getCorrectAnswer());
         for (int j = 0; j < answers.size(); j++) {
             String s = answers.get(j);
-            sb.append(ALPHABET[j]).append(") ").append(s).append("\n");
+            sb.append(TEXT_EMOJIS[j]).append(") ").append(s).append("\n");
         }
 
         if (currentQuestion != null) {
             currentQuestion.delete().queue();
         }
-        currentAnswer = ALPHABET[correctAnswer];
+        currentAnswer = TEXT_EMOJIS[correctAnswer];
         channel.sendMessage(sb.toString()).queue(msg -> {
             currentQuestion = msg;
+            for (String litEmoji : LIT_EMOJIS) {
+                msg.addReaction(litEmoji).queue();
+            }
         });
     }
     @Override
