@@ -7,6 +7,7 @@ import ch.yth2021.charjar.discord.bot.listener.CommandListener;
 import ch.yth2021.charjar.discord.bot.listener.MessageEventListener;
 import ch.yth2021.charjar.discord.bot.listener.ReactionListener;
 import ch.yth2021.charjar.discord.bot.listener.ReadListener;
+import ch.yth2021.charjar.discord.module.randomevents.RandomEventScheduler;
 import ch.yth2021.charjar.discord.module.swear.SwearModule;
 import ch.yth2021.charjar.discord.processor.PointModificationProcessor;
 import net.dv8tion.jda.api.JDA;
@@ -27,6 +28,7 @@ public class Application {
     private static Logger logger = LoggerFactory.getLogger(Application.class);
     public static ApplicationProperties properties;
     public static String clientId = "";
+    public static RandomEventScheduler randomEventScheduler;
 
     private static HashMap<String, BotCommand> commands = new HashMap<>();
     private static ThreadPoolExecutor commandExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
@@ -58,7 +60,7 @@ public class Application {
                 .addEventListeners(new CommandListener())
                 .addEventListeners(new MessageEventListener())
                 .addEventListeners(new ReactionListener())
-                        .build();
+                .build();
 
         SwearModule.register(new PointModificationProcessor());
     }

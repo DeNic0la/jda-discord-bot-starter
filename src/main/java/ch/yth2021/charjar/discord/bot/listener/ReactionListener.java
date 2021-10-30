@@ -45,7 +45,7 @@ public class ReactionListener extends ListenerAdapter {
     }
 
     private boolean isRandomEventAndUserReactedProperly(GuildMessageReactionAddEvent e, Message m) {
-        var currentRandomEvent = RandomEventScheduler.possibleRandomEvents.get(RandomEventScheduler.getCurrentTaskIndex());
+        var currentRandomEvent = RandomEventScheduler.possibleRandomEvents.get(Application.randomEventScheduler.getCurrentTaskIndex());
         return m.getContentStripped().contains(currentRandomEvent.getMessage()) && e.getReactionEmote().getName().equals(currentRandomEvent.getReactionEmoji());
     }
 
