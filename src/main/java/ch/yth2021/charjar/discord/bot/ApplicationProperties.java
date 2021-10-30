@@ -3,7 +3,6 @@ package ch.yth2021.charjar.discord.bot;
 import com.google.common.base.Strings;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.Properties;
 
 public class ApplicationProperties {
@@ -29,7 +28,7 @@ public class ApplicationProperties {
     }
 
     public String getKickuserActivated() {
-        return Strings.isNullOrEmpty(secretProperties.getProperty("kick-users")) ? properties.getProperty("kick-users") : secretProperties.getProperty("kick-users");
+        return properties.getProperty("kick-users");
     }
 
     public String getApiURL() {
