@@ -1,5 +1,6 @@
 package ch.yth2021.charjar.discord.bot.command;
 
+import ch.yth2021.charjar.discord.bot.Application;
 import ch.yth2021.charjar.discord.module.randomevents.RandomEventScheduler;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
@@ -15,8 +16,10 @@ public class StartRandomEventSchedulerCommand extends BotCommand {
     @Override
     public void execute(SlashCommandEvent event) {
         var channelId = event.getChannel().getId();
-        var res = new RandomEventScheduler(channelId);
-        res.startScheduler();
+        if (Application.randomEventScheduler == null) {
+            Application.randomEventScheduler = new RandomEventScheduler(channelId);
+        }
+        Application.randomEventScheduler.startScheduler();
         event.reply("random events scheduler is running").queue();
     }
 }
