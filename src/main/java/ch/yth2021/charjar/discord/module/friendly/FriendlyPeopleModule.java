@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class FriendlyPeopleModule implements BasicEventModule {
-    private static final int POINTS_FOR_FRIENDLY_BEHAVIOUR = 10;
+    private static final int POINTS_FOR_FRIENDLY_BEHAVIOUR = 4;
     private static final String FILENAME = "friendlywords.txt";
     private final Logger logger = LoggerFactory.getLogger(Application.class);
 

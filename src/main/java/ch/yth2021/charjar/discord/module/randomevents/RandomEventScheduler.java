@@ -54,7 +54,7 @@ public class RandomEventScheduler {
         @Override
         public void run() {
             // TODO: increase bound to make random events less common
-            int delay = (5 + new Random().nextInt(20)) * 1000;
+            int delay = (5 + new Random().nextInt(100)) * 1000;
             currentTaskIndex = (delay % possibleRandomEvents.size());
             timer.schedule(new RandomTask(), delay);
 
