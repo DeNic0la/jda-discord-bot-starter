@@ -23,6 +23,10 @@ public class RandomEventScheduler {
         this.textChannel = Application.getJDA().getTextChannelById(channelId);
     }
 
+    public static void stopScheduler() {
+        timer.purge();
+    }
+
     public void startScheduler() {
         new RandomTask().run();
 
@@ -58,7 +62,9 @@ public class RandomEventScheduler {
             currentTaskIndex = (delay % possibleRandomEvents.size());
             timer.schedule(new RandomTask(), delay);
 
-            textChannel.sendMessage(String.format("%s %s", possibleRandomEvents.get(currentTaskIndex).getMessage(), possibleRandomEvents.get(currentTaskIndex).getReactionEmoji())).queue();
+            textChannel.sendMessage(String.format("%s %s", possibleRandomEvents.get(currentTaskIndex).getMessage(),
+                            possibleRandomEvents.get(currentTaskIndex).getReactionEmoji()))
+                    .queue();
         }
     }
 

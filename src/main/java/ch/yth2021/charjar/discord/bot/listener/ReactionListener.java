@@ -9,17 +9,28 @@ import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.OffsetDateTime;
 
 public class ReactionListener extends ListenerAdapter {
+    private final static Long EXPIRES_AFTER = 10L;
+
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
         event.getChannel().retrieveMessageById(event.getMessageId()).queue(m -> {
             if (isSentByBot(m)) {
-                if (isRandomEventAndUserReactedProperly(event, m)) {
+                if (isRandomEventAndUserReactedProperly(event, m) && !messageExpired(m, EXPIRES_AFTER)) {
                     giveUserPoints(event.getUserId());
+                } else {
+                    event.getReaction().clearReactions().queue();
                 }
             }
         });
+    }
+
+    private boolean messageExpired(Message m, Long expiredAfterSeconds) {
+        var difference = Duration.between(m.getTimeCreated(), OffsetDateTime.now());
+        return difference.getSeconds() > expiredAfterSeconds;
     }
 
     private void giveUserPoints(String userId) {
