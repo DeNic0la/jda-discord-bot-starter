@@ -5,6 +5,7 @@ import ch.yth2021.charjar.API.model.APIRespondedBullshitException;
 import ch.yth2021.charjar.discord.bot.Application;
 import ch.yth2021.charjar.discord.module.BasicEventModule;
 import ch.yth2021.charjar.discord.module.FileReadHelper;
+import ch.yth2021.charjar.discord.processor.model.EventListener;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,18 @@ public class SwearModule implements BasicEventModule {
     private static final String TEMPLATE_REGEXP_MATCH_ON_CHAR_OR_STAR = "[%s\\*]";
     private static final String TEMPLATE_REGEXP_MATCH = ".*(%s).*";
     private static List<String> RegexpSwearWords = new ArrayList<>();
+
+    private static List<EventListener> toNotify = new ArrayList<>();
+
+    public static void register(EventListener el){
+        toNotify.add(el);
+    }
+
+    private static void notifyListeners(MessageReceivedEvent event){
+        for (EventListener eventListener : toNotify) {
+            eventListener.onEvent(event);
+        }
+    }
 
     public int countSwearwords(String message) {
         int swearWordCounter = 0;
@@ -79,5 +92,7 @@ public class SwearModule implements BasicEventModule {
             }
             event.getMessage().addReaction("U+1F621").queue();
         }
+
+        notifyListeners(event);
     }
 }

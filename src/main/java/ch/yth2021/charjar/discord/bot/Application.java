@@ -7,6 +7,8 @@ import ch.yth2021.charjar.discord.bot.listener.CommandListener;
 import ch.yth2021.charjar.discord.bot.listener.MessageEventListener;
 import ch.yth2021.charjar.discord.bot.listener.ReactionListener;
 import ch.yth2021.charjar.discord.bot.listener.ReadListener;
+import ch.yth2021.charjar.discord.module.swear.SwearModule;
+import ch.yth2021.charjar.discord.processor.PointModificationProcessor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -54,7 +56,9 @@ public class Application {
                 .addEventListeners(new CommandListener())
                 .addEventListeners(new MessageEventListener())
                 .addEventListeners(new ReactionListener())
-                .build();
+                        .build();
+
+        SwearModule.register(new PointModificationProcessor());
     }
 
     public static JDA getJDA() {
