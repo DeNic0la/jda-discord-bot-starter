@@ -28,7 +28,7 @@ public class FriendlyPeopleModule implements BasicEventModule {
             } catch (APIRespondedBullshitException e) {
                 logger.debug("Data from API could not be Processed", e);
             }
-
+            event.getMessage().addReaction("U+1F970").queue();
         }
     }
 
